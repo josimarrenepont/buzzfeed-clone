@@ -10,7 +10,7 @@ import { QuizService } from '../quiz/quiz.service';
 export class HomeComponent {
   quizzes: Quiz[] = [];
 
-  constructor(private quizService: QuizService) {
+  constructor(private readonly quizService: QuizService) {
     this.quizzes = this.quizService.getAllQuizzes();
   }
 }
