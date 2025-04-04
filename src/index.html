@@ -1,13 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>BuzzfeedClone</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-</head>
-<body>
-  <app-root></app-root>
-</body>
-</html>
+<div *ngIf="quiz" class="quiz-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>{{ quiz.title }}</mat-card-title>
+      <mat-card-subtitle>{{ quiz.description }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content *ngIf="!result">
+      <div *ngIf="quiz.questions[currentQuestionIndex] as question">
+        <h3>{{ question.text }}</h3>
+
+        <mat-radio-group
+          [(ngModel)]="selectedOptions[question.id]"
+          class="options-group">
+          <mat-radio-button
+            *ngFor="let option of question.options"
+            [value]="option.id">
+            {{ option.text }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <div class="navigation-buttons">
+          <button mat-button (click)="nextQuestion()" *ngIf="currentQuestionIndex < quiz.questions.length - 1">
+            Próxima
+          </button>
+          <button mat-raised-button color="primary" (click)="submitQuiz()"
+                  *ngIf="currentQuestionIndex === quiz.questions.length - 1">
+            Ver resultado
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-content *ngIf="result">
+      <h2>Seu resultado:</h2>
+      <h3>{{ result }}</h3>
+      <p>{{ quiz.results.find(r => r.title === result)?.description }}</p>
+      <button mat-raised-button color="primary" routerLink="/">Voltar</button>
+    </mat-card-content>
+  </mat-card>
+</div>

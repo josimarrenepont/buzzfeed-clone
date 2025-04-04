@@ -1,0 +1,16 @@
+<div class="home-container">
+  <h1>Quizzes BuzzFeed</h1>
+
+  <mat-grid-list cols="3" rowHeight="2:1" gutterSize="20px">
+    <mat-grid-tile *ngFor="let quiz of quizzes" [routerLink]="['/quiz', quiz.id]">
+      <mat-card class="quiz-card">
+        <mat-card-header>
+          <mat-card-title>{{ quiz.title }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ quiz.description }}
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
